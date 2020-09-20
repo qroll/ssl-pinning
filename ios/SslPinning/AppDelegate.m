@@ -12,6 +12,11 @@
 #import <FlipperKitUserDefaultsPlugin/FKUserDefaultsPlugin.h>
 #import <SKIOSNetworkPlugin/SKIOSNetworkAdapter.h>
 
+#import <TrustKit/TrustKit.h>
+#import <TrustKit/TSKPinningValidator.h>
+#import <TrustKit/TSKPinningValidatorCallback.h>
+#import <TrustKit/TSKTrustDecision.h>
+
 static void InitializeFlipper(UIApplication *application) {
   FlipperClient *client = [FlipperClient sharedClient];
   SKDescriptorMapper *layoutDescriptorMapper =
@@ -51,6 +56,18 @@ static void InitializeFlipper(UIApplication *application) {
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+
+  void (^pinningValidatorCallback)(TSKPinningValidatorResult *, NSString *, TKSDomainPinningPolicy *) = ^void(
+    TSKPinningValidatorResult *result,
+    NSString *hostname,
+    TKSDomainPinningPolicy *TKSDomainPinningPolicy)
+  {
+    NSLog(@"@@@ enums %d %d %d", TSKTrustDecisionShouldAllowConnection, TSKTrustDecisionShouldBlockConnection, TSKTrustDecisionDomainNotPinned);
+    NSLog(@"@@@ %d", result.finalTrustDecision);
+  };
+
+  [TrustKit sharedInstance].pinningValidatorCallback = pinningValidatorCallback;
+
   return YES;
 }
 
