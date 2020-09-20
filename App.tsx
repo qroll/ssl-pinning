@@ -24,7 +24,7 @@ declare const global: { HermesInternal: null | {} };
 
 const callApi = async () => {
   const response = await fetch(
-    "https://api.steampowered.com/ISteamNews/GetNewsForApp/v0002/?appid=1145360&count=3&maxlength=300&format=json"
+    `https://api.steampowered.com/ISteamNews/GetNewsForApp/v0002/?appid=1145360&count=3&maxlength=300&format=json&random=${new Date().valueOf()}`
   );
   return response.json();
 };
@@ -32,11 +32,16 @@ const callApi = async () => {
 const App = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [apiResult, setApiResult] = useState<null>(null);
+  const [error, setError] = useState<Error | null>(null);
+
   const fetchNews = useCallback(async () => {
     setIsLoading(true);
-    const result = await callApi();
-    setApiResult(result);
-    setIsLoading(false);
+    setApiResult(null);
+    setError(null);
+    callApi()
+      .then((result) => setApiResult(result))
+      .catch((err) => setError(err))
+      .finally(() => setIsLoading(false));
   }, []);
 
   return (
@@ -51,6 +56,11 @@ const App = () => {
           {isLoading ? (
             <View>
               <Text>Loading...</Text>
+            </View>
+          ) : error ? (
+            <View>
+              <Text>Error:</Text>
+              <Text style={styles.code}>{error.message}</Text>
             </View>
           ) : (
             <View>

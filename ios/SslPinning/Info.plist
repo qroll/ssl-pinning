@@ -2,6 +2,26 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>TSKConfiguration</key>
+	<dict>
+		<key>TSKSwizzleNetworkDelegates</key>
+		<true/>
+		<key>TSKPinnedDomains</key>
+		<dict>
+			<key>api.steampowered.com</key>
+			<dict>
+				<key>TSKEnforcePinning</key>
+				<true/>
+				<key>TSKIncludeSubdomains</key>
+				<true/>
+				<key>TSKPublicKeyHashes</key>
+				<array>
+					<string>EZWzHDyyzawvJBQcYoBI24vsbMl22CJ3mBX6rEh88eU=</string>
+					<string>RRM1dGqnDFsCJXBTHky16vi1obOlCgFFn/yOhI/y+ho=</string>
+				</array>
+			</dict>
+		</dict>
+	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>

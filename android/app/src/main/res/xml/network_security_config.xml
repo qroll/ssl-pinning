@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <base-config cleartextTrafficPermitted="false" />
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">127.0.0.1</domain>
+        <domain includeSubdomains="true">localhost</domain>
+        <domain includeSubdomains="true">10.0.2.2</domain>
+        <domain includeSubdomains="true">10.0.3.2</domain>
+    </domain-config>
+    <domain-config>
+        <domain includeSubdomains="true">api.steampowered.com</domain>
+        <pin-set>
+            <pin digest="SHA-256">EZWzHDyyzawvJBQcYoBI24vsbMl22CJ3mBX6rEh88eU=</pin>
+            <pin digest="SHA-256">RRM1dGqnDFsCJXBTHky16vi1obOlCgFFn/yOhI/y+ho=</pin>
+        </pin-set>
+    </domain-config>
+</network-security-config>
