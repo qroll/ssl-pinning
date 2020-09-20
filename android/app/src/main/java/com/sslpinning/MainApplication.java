@@ -2,6 +2,7 @@ package com.sslpinning;
 
 import android.app.Application;
 import android.content.Context;
+import com.facebook.react.modules.network.OkHttpClientProvider;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactInstanceManager;
@@ -45,6 +46,8 @@ public class MainApplication extends Application implements ReactApplication {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
     initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
+    
+    OkHttpClientProvider.setOkHttpClientFactory(new CustomOkHttpClientFactory());
   }
 
   /**
